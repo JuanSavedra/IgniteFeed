@@ -1,9 +1,11 @@
 import { Post } from './Post';
+import { Header } from './components/Header'
+import './styles.css';
 
 export function App() {
   return (
     <div>
-      <h1>Local for Posts</h1>
+      <Header />
       <Post 
         author="Juan Savedra"
         content="Lorem Ipsum"
