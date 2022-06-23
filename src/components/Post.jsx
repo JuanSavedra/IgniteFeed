@@ -1,33 +1,46 @@
+import ptBR from 'date-fns/locale/pt-BR';
 import styles from './Post.module.css';
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
+import { format, formatDistanceToNow } from 'date-fns';
 
-export function Post(props) {
-  console.log(props);
+export function Post({ author, publishedAt, content }) {
+  const publishedAtFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", { 
+    locale: ptBR
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true
+  });
 
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://github.com/JuanSavedra.png" />
+          <Avatar src={author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong>Juan Savedra</strong>
-            <span>Web Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
         <time 
-          title="22 de junho às 14:00h" 
-          dateTime="2022-06-22 14:00:00"
+          title={publishedAtFormatted}
+          dateTime={publishedAt.toISOString()}
         >
-            Publicado há 1h
+          {publishedDateRelativeToNow}
         </time>
       </header>
-
       <div className={styles.content}>
-        
+        {content.map(line => {
+          if (line.type === 'paragraph') {
+            return <p>{line.content}</p>
+          } else if (line.type === 'link') {
+            return <p><a href="#">{line.content}</a></p>
+          }
+        })}
       </div>
-
       <form className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
         <textarea placeholder="Deixe seu comentário" />
@@ -35,7 +48,6 @@ export function Post(props) {
           <button type="submit">Publicar</button>
         </footer>
       </form>
-
       <div className={styles.commentList}>
         <Comment />
       </div>
