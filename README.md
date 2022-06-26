@@ -19,4 +19,5 @@
 - ❗ Um id a cada comentário, para assim não ocorrer o bug de deletarmos todos comentários com conteúdos iguais.
 - ❗ Chamada em uma API para consultarmos os posts.
 
+# Imagem da aplicação. 
 ![Captura de tela de 2022-06-26 14-38-35](https://user-images.githubusercontent.com/66082393/175826933-4c0d8d3c-37e1-4f3d-a6dd-5a4138c8ff1a.png)
